@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "856151324866",
+    "project_id": "fortress-chat-3e3f8",
+    "storage_bucket": "fortress-chat-3e3f8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:856151324866:android:e42221a0db9c7eaeb6a35b",
+        "android_client_info": {
+          "package_name": "com.example.temp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn8FQx11dyVIZeYZZ0yKJ2Jbv2WNLrkns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
