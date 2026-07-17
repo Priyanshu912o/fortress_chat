@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:temp/core/theme/colours_dark.dart';
+import 'package:temp/core/theme/colours_light.dart';
 
 /// Fortress Elevation & Shadow Tokens
 /// Use [BoxShadow] lists for containers/cards, and [elevation] values
@@ -6,9 +8,9 @@ import 'package:flutter/material.dart';
 abstract final class AppElevation {
   // ── Material Elevation Values ─────────────────────────────────────────────
 
-  static const double small = 1;       // Cards at rest
-  static const double medium = 4;      // Elevated cards, FAB
-  static const double large = 8;       // Modals, bottom sheets
+  static const double small = 1; // Cards at rest
+  static const double medium = 4; // Elevated cards, FAB
+  static const double large = 8; // Modals, bottom sheets
 
   // ── BoxShadow Definitions ─────────────────────────────────────────────────
   // Use these with Container/DecoratedBox when you need custom shadow control.
@@ -71,14 +73,14 @@ abstract final class AppElevation {
     BoxShadow(
       offset: Offset.zero,
       blurRadius: 8,
-      color: Color(0x406C5CE7), // primary @ 25%
+      color: ColoursLight.textFieldInner, // primary @ 25%
     ),
     // Outer glow — softer, wider spread
     BoxShadow(
       offset: Offset.zero,
       blurRadius: 20,
       spreadRadius: 2,
-      color: Color(0x1A6C5CE7), // primary @ 10%
+      color: ColoursLight.textFieldOuter, // primary @ 10%
     ),
   ];
 
@@ -88,14 +90,14 @@ abstract final class AppElevation {
     BoxShadow(
       offset: Offset.zero,
       blurRadius: 8,
-      color: Color(0x40A29BFE), // primary dark @ 25%
+      color: ColoursDark.textFieldInner, // primary dark @ 25%
     ),
     // Outer glow
     BoxShadow(
       offset: Offset.zero,
-      blurRadius: 20,
-      spreadRadius: 2,
-      color: Color(0x1AA29BFE), // primary dark @ 10%
+      blurRadius: 10,
+      spreadRadius: 1,
+      color: ColoursDark.textFieldOuter, // primary dark @ 10%
     ),
   ];
 }
