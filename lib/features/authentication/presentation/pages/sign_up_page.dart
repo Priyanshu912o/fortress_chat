@@ -42,165 +42,175 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: MediaQuery.sizeOf(context).height,
-          ),
-          child: IntrinsicHeight(
-            child: Column(
-              children: [
-                // ─── Decorative blurred circles area ───────────
-                Expanded(flex: 1, child: CircleGradient()),
-                // ─── Form area ─────────────────────────────────
-                Expanded(
-                  flex: 2,
+    return Scaffold(
+      body: ListView(
+        children: [
+          ConstrainedBox(
+            constraints: BoxConstraints(
+              minHeight: MediaQuery.sizeOf(context).height,
+            ),
+            child: IntrinsicHeight(
+              child: Column(
+                children: [
+                  // ─── Decorative blurred circles area ───────────
+                  Expanded(flex: 1, child: CircleGradient()),
+                  // ─── Form area ─────────────────────────────────
+                  Expanded(
+                    flex: 2,
 
-                  child: Container(
-                    padding: const EdgeInsets.all(AppSpacing.marginDesktop),
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.surface,
-                      borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(AppRadii.xLargeValue),
-                        topRight: Radius.circular(AppRadii.xLargeValue),
+                    child: Container(
+                      padding: const EdgeInsets.all(AppSpacing.marginDesktop),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(AppRadii.xLargeValue),
+                          topRight: Radius.circular(AppRadii.xLargeValue),
+                        ),
+                        boxShadow: AppElevation.shadowLarge,
                       ),
-                      boxShadow: AppElevation.shadowLarge,
-                    ),
 
-                    child: Form(
-                      key: _formState,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          AuthTextFormField(
-                            prefixIcon: Icons.person_outline,
-                            focusedPrefixIcon: Icons.person,
-                            hintText: 'How should we call you?',
-                            controller: _nameController,
-                            validator: Validators.validator['name'],
-                            lable: 'Lovely Name 🫶',
-                            keyboardType: TextInputType.name,
-                          ),
-
-                          AuthTextFormField(
-                            prefixIcon: Icons.mail_outline,
-                            focusedPrefixIcon: Icons.mail,
-                            hintText: 'you@example.com',
-                            controller: _emailController,
-                            lable: 'Rightful Email 😤',
-                            validator: Validators.validator['email'],
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            keyboardType: TextInputType.emailAddress,
-                          ),
-
-                          AuthTextFormField(
-                            prefixIcon: Icons.key_outlined,
-                            focusedPrefixIcon: Icons.key,
-                            hintText: 'Create a strong password',
-                            controller: _passwordController,
-                            lable: 'Strong Password 💪',
-                            helperText: 'Not 12345678 plss 🙏',
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            validator: Validators.validator['password'],
-                            keyboardType: TextInputType.visiblePassword,
-                            suffixIcon: const Icon(
-                              Icons.visibility_off_outlined,
+                      child: Form(
+                        key: _formState,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            AuthTextFormField(
+                              prefixIcon: Icons.person_outline,
+                              focusedPrefixIcon: Icons.person,
+                              hintText: 'How should we call you?',
+                              controller: _nameController,
+                              validator: Validators.validator['name'],
+                              lable: 'Lovely Name 🫶',
+                              keyboardType: TextInputType.name,
                             ),
-                            focusedSuffixIcon: const Icon(Icons.visibility_off),
-                            tappedSuffixIcon: const Icon(Icons.visibility),
-                            isObscure: true,
-                          ),
 
-                          AuthTextFormField(
-                            prefixIcon: Icons.lock_reset,
-                            focusedPrefixIcon: Icons.lock_reset_outlined,
-                            hintText: 'How should we call you?',
-                            controller: _confirmPasswordController,
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'Re-enter your password';
-                              }
-                              if (_passwordController.text != value) {
-                                return 'Passwords do not match.';
-                              }
-                              return null;
-                            },
-                            lable: 'Confirm Password 👍',
-                            autovalidateMode:
-                                AutovalidateMode.onUserInteraction,
-                            keyboardType: TextInputType.visiblePassword,
-                            suffixIcon: const Icon(
-                              Icons.visibility_off_outlined,
+                            AuthTextFormField(
+                              prefixIcon: Icons.mail_outline,
+                              focusedPrefixIcon: Icons.mail,
+                              hintText: 'you@example.com',
+                              controller: _emailController,
+                              lable: 'Rightful Email 😤',
+                              validator: Validators.validator['email'],
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              keyboardType: TextInputType.emailAddress,
                             ),
-                            focusedSuffixIcon: const Icon(Icons.visibility_off),
-                            tappedSuffixIcon: const Icon(Icons.visibility),
-                            isObscure: true,
-                          ),
 
-                          PrimaryButton(
-                            onPressed: () {
-                              _formState.currentState!.validate();
-                            },
-                            text: 'Sign Up',
-                            isLoading: false,
-                          ),
+                            AuthTextFormField(
+                              prefixIcon: Icons.key_outlined,
+                              focusedPrefixIcon: Icons.key,
+                              hintText: 'Create a strong password',
+                              controller: _passwordController,
+                              lable: 'Strong Password 💪',
+                              helperText: 'Not 12345678 plss 🙏',
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: Validators.validator['password'],
+                              keyboardType: TextInputType.visiblePassword,
+                              suffixIcon: const Icon(
+                                Icons.visibility_off_outlined,
+                              ),
+                              focusedSuffixIcon: const Icon(
+                                Icons.visibility_off,
+                              ),
+                              tappedSuffixIcon: const Icon(Icons.visibility),
+                              isObscure: true,
+                            ),
 
-                          RichText(
-                            text: TextSpan(
-                              text: 'Already have an account? ',
-                              style: Theme.of(context).textTheme.labelLarge!
-                                  .copyWith(fontWeight: FontWeight.w400),
+                            AuthTextFormField(
+                              prefixIcon: Icons.lock_reset,
+                              focusedPrefixIcon: Icons.lock_reset_outlined,
+                              hintText: 'How should we call you?',
+                              controller: _confirmPasswordController,
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Re-enter your password';
+                                }
+                                if (_passwordController.text != value) {
+                                  return 'Passwords do not match.';
+                                }
+                                return null;
+                              },
+                              lable: 'Confirm Password 👍',
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              keyboardType: TextInputType.visiblePassword,
+                              suffixIcon: const Icon(
+                                Icons.visibility_off_outlined,
+                              ),
+                              focusedSuffixIcon: const Icon(
+                                Icons.visibility_off,
+                              ),
+                              tappedSuffixIcon: const Icon(Icons.visibility),
+                              isObscure: true,
+                            ),
+
+                            PrimaryButton(
+                              onPressed: () {
+                                _formState.currentState!.validate();
+                              },
+                              text: 'Sign Up',
+                              isLoading: false,
+                            ),
+
+                            RichText(
+                              text: TextSpan(
+                                text: 'Already have an account? ',
+                                style: Theme.of(context).textTheme.labelLarge!
+                                    .copyWith(fontWeight: FontWeight.w400),
+                                children: [
+                                  TextSpan(
+                                    text: 'Sign In',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .copyWith(
+                                          fontWeight: FontWeight.w600,
+                                          color: Theme.of(
+                                            context,
+                                          ).colorScheme.primary,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                TextSpan(
-                                  text: 'Sign In',
-                                  style: Theme.of(context).textTheme.labelLarge!
+                                Icon(
+                                  Icons.lock,
+                                  size: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium!.fontSize,
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onInverseSurface,
+                                ),
+                                Text(
+                                  '  ENCYPTED LOCALLY',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
                                       .copyWith(
-                                        fontWeight: FontWeight.w600,
                                         color: Theme.of(
                                           context,
-                                        ).colorScheme.primary,
+                                        ).colorScheme.onInverseSurface,
                                       ),
                                 ),
                               ],
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.lock,
-                                size: Theme.of(
-                                  context,
-                                ).textTheme.labelMedium!.fontSize,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onInverseSurface,
-                              ),
-                              Text(
-                                '  ENCYPTED LOCALLY',
-                                style: Theme.of(context).textTheme.labelMedium!
-                                    .copyWith(
-                                      color: Theme.of(
-                                        context,
-                                      ).colorScheme.onInverseSurface,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
