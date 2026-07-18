@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temp/core/theme/colours_dark.dart';
-import 'package:temp/core/theme/colours_light.dart';
+import 'package:fortress_chat/core/theme/colours_dark.dart';
+import 'package:fortress_chat/core/theme/colours_light.dart';
 
 /// Fortress Elevation & Shadow Tokens
 /// Use [BoxShadow] lists for containers/cards, and [elevation] values

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temp/core/theme/colours_dark.dart';
-import 'package:temp/core/theme/colours_light.dart';
+import 'package:fortress_chat/core/theme/colours_dark.dart';
+import 'package:fortress_chat/core/theme/colours_light.dart';
 
 /// Fortress Gradient Tokens
 /// All gradients use subtle, smooth 2–3 stop transitions.
@@ -11,10 +11,7 @@ abstract final class AppGradients {
   static const LinearGradient primary = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [
-      Color(0xFF6C5CE7),
-      Color(0xFFA29BFE),
-    ],
+    colors: [Color(0xFF6C5CE7), Color(0xFFA29BFE)],
   );
 
   /// 180°, surface → surface @ 95% — App bar with subtle fade
@@ -55,10 +52,7 @@ abstract final class AppGradients {
   static const LinearGradient primaryDark = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [
-      Color(0xFF5A4BD1),
-      Color(0xFF8B7FF0),
-    ],
+    colors: [Color(0xFF5A4BD1), Color(0xFF8B7FF0)],
   );
 
   /// Dark mode app bar — subtle surface fade
@@ -85,11 +79,7 @@ abstract final class AppGradients {
   static const LinearGradient onboardingDark = LinearGradient(
     begin: Alignment(-0.5, -0.87),
     end: Alignment(0.5, 0.87),
-    colors: [
-      Color(0xFF5A4BD1),
-      Color(0xFF00B5B0),
-      Color(0x26FF9CC2),
-    ],
+    colors: [Color(0xFF5A4BD1), Color(0xFF00B5B0), Color(0x26FF9CC2)],
     stops: [0.0, 0.55, 1.0],
   );
 }

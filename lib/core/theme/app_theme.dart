@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:temp/core/theme/app_elevation.dart';
-import 'package:temp/core/theme/app_gradients.dart';
-import 'package:temp/core/theme/app_radii.dart';
-import 'package:temp/core/theme/app_typography.dart';
-import 'package:temp/core/theme/colours_dark.dart';
-import 'package:temp/core/theme/colours_light.dart';
-
+import 'package:fortress_chat/core/theme/app_elevation.dart';
+import 'package:fortress_chat/core/theme/app_gradients.dart';
+import 'package:fortress_chat/core/theme/app_radii.dart';
+import 'package:fortress_chat/core/theme/app_typography.dart';
+import 'package:fortress_chat/core/theme/colours_dark.dart';
+import 'package:fortress_chat/core/theme/colours_light.dart';
 
 final class AppTheme {
   AppTheme._();
