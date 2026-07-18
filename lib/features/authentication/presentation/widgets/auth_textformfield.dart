@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temp/core/theme/app_elevation.dart';
-import 'package:temp/core/theme/app_radii.dart';
-import 'package:temp/core/theme/app_spacing.dart';
+import 'package:fortress_chat/core/theme/app_elevation.dart';
+import 'package:fortress_chat/core/theme/app_radii.dart';
 
 class AuthTextFormField extends StatefulWidget {
   final IconData _prefixIcon;
@@ -17,6 +16,7 @@ class AuthTextFormField extends StatefulWidget {
   final String? _helperText;
   final String? _errorText;
   final AutovalidateMode? _autovalidateMode;
+  final TextInputType? _keyboardType;
 
   const AuthTextFormField({
     super.key,
@@ -33,6 +33,7 @@ class AuthTextFormField extends StatefulWidget {
     this._helperText,
     this._errorText,
     this._autovalidateMode,
+    this._keyboardType,
   });
 
   @override
@@ -63,76 +64,77 @@ class _AuthTextFormFieldState extends State<AuthTextFormField> {
   Widget build(BuildContext context) {
     bool inFocus = _focusNode.hasFocus;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppSpacing.space16),
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: inFocus
-              ? (MediaQuery.of(context).platformBrightness == Brightness.dark
-                    ? AppElevation.shadowGlowDark
-                    : AppElevation.shadowGlowLight)
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: inFocus
+            ? (MediaQuery.of(context).platformBrightness == Brightness.dark
+                  ? AppElevation.shadowGlowDark
+                  : AppElevation.shadowGlowLight)
+            : null,
+        shape: BoxShape.rectangle,
+        borderRadius: AppRadii.medium,
+      ),
+      child: TextFormField(
+        validator: widget._validator,
+        controller: widget._controller,
+        focusNode: _focusNode,
+        showCursor: inFocus,
+        obscureText: (widget._isObscure && (_isVisible || !inFocus)),
+        autovalidateMode: widget._autovalidateMode,
+        keyboardType: widget._keyboardType,
+        decoration: InputDecoration(
+          errorText: widget._errorText,
+          prefixIconColor: inFocus
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onInverseSurface,
+          suffixIconColor: inFocus
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onInverseSurface,
+          helperText: inFocus ? widget._helperText : null,
+          helperStyle: Theme.of(context).textTheme.labelLarge!.copyWith(
+            color: Theme.of(context).colorScheme.onInverseSurface,
+          ),
+          labelText: widget._lable,
+          hintText: widget._hintText,
+          hintStyle: TextStyle(
+            color: Theme.of(context).colorScheme.onInverseSurface,
+          ),
+          prefixIcon: inFocus
+              ? Icon(widget._focusedPrefixIcon)
+              : Icon(widget._prefixIcon),
+          suffixIcon: widget._suffixIcon != null
+              ? (inFocus
+                    ? GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _isVisible = !_isVisible;
+                          });
+                        },
+                        child: inFocus
+                            ? (_isVisible
+                                  ? widget._focusedSuffixIcon
+                                  : widget._tappedSuffixIcon)
+                            : widget._suffixIcon,
+                      )
+                    : widget._suffixIcon)
               : null,
-          shape: BoxShape.rectangle,
-          borderRadius: AppRadii.medium,
-        ),
-        child: TextFormField(
-          validator: widget._validator,
-          controller: widget._controller,
-          focusNode: _focusNode,
-          showCursor: inFocus,
-          obscureText: _isVisible,
-          autovalidateMode: widget._autovalidateMode,
-          decoration: InputDecoration(
-            errorText: widget._errorText,
-            prefixIconColor: inFocus
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.onInverseSurface,
-            suffixIconColor: inFocus
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.onInverseSurface,
-            helperText: inFocus ? widget._helperText : null,
-            labelText: widget._lable,
-            hintText: widget._hintText,
-            hintStyle: TextStyle(
+          border: OutlineInputBorder(
+            borderRadius: AppRadii.medium,
+            borderSide: BorderSide(
               color: Theme.of(context).colorScheme.onInverseSurface,
             ),
-            prefixIcon: inFocus
-                ? Icon(widget._focusedPrefixIcon)
-                : Icon(widget._prefixIcon),
-            suffixIcon: widget._suffixIcon != null
-                ? (inFocus
-                      ? GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _isVisible = !_isVisible;
-                            });
-                          },
-                          child: inFocus
-                              ? (_isVisible
-                                    ? widget._tappedSuffixIcon
-                                    : widget._focusedSuffixIcon)
-                              : widget._suffixIcon,
-                        )
-                      : widget._suffixIcon)
-                : null,
-            border: OutlineInputBorder(
-              borderRadius: AppRadii.medium,
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onInverseSurface,
-              ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
             ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              borderRadius: AppRadii.medium,
+            borderRadius: AppRadii.medium,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.onInverseSurface,
             ),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(
-                color: Theme.of(context).colorScheme.onInverseSurface,
-              ),
-              borderRadius: AppRadii.medium,
-            ),
+            borderRadius: AppRadii.medium,
           ),
         ),
       ),
