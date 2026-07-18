@@ -48,7 +48,9 @@ class CircleGradient extends StatelessWidget {
                   padding: const EdgeInsets.all(AppSpacing.space16),
                   child: Icon(
                     Icons.shield,
-                    size: 30,
+                    size:
+                        Theme.of(context).textTheme.headlineLarge!.fontSize! *
+                        1.4,
                     color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
