@@ -53,7 +53,7 @@ class _SignUpPageState extends State<SignUpPage> {
               child: Column(
                 children: [
                   // ─── Decorative blurred circles area ───────────
-                  Expanded(flex: 1, child: CircleGradient()),
+                  const Expanded(flex: 1, child: CircleGradient()),
                   // ─── Form area ─────────────────────────────────
                   Expanded(
                     flex: 2,

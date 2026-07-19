@@ -25,10 +25,10 @@ class CircleGradient extends StatelessWidget {
             ),
           ),
           // Green glow circle
-          Positioned(
+          const Positioned(
             right: 50,
             bottom: 80,
-            child: const BlurredCircle(
+            child: BlurredCircle(
               size: 80,
               color: Color.fromARGB(255, 145, 223, 148),
               blurRadius: 200,

@@ -34,18 +34,6 @@ abstract final class AppGradients {
     ],
   );
 
-  /// 160°, primary → secondary → tertiary @ 15% — Splash/auth background wash
-  static const LinearGradient onboarding = LinearGradient(
-    begin: Alignment(-0.5, -0.87), // ~160°
-    end: Alignment(0.5, 0.87),
-    colors: [
-      Color(0xFF6C5CE7),
-      Color(0xFF00CEC9),
-      Color(0x26FD79A8), // tertiary @ 15%
-    ],
-    stops: [0.0, 0.55, 1.0],
-  );
-
   // ── Dark Mode Gradients ───────────────────────────────────────────────────
 
   /// 135°, primaryVariant (dark) → primaryDark — Dark mode sent bubbles
@@ -73,13 +61,5 @@ abstract final class AppGradients {
       Color(0x0DA29BFE), // primary dark @ 5%
       Color(0x0D55EFC4), // secondary dark @ 5%
     ],
-  );
-
-  /// Dark mode onboarding wash
-  static const LinearGradient onboardingDark = LinearGradient(
-    begin: Alignment(-0.5, -0.87),
-    end: Alignment(0.5, 0.87),
-    colors: [Color(0xFF5A4BD1), Color(0xFF00B5B0), Color(0x26FF9CC2)],
-    stops: [0.0, 0.55, 1.0],
   );
 }

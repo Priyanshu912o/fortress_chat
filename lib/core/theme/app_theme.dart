@@ -13,7 +13,7 @@ final class AppTheme {
     return ThemeData(
       useMaterial3: true,
       scaffoldBackgroundColor: ColoursDark.background,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         brightness: ColoursDark.brightness,
         primary: ColoursDark.primary,
         primaryContainer: ColoursDark.primaryVariant,
@@ -48,7 +48,7 @@ final class AppTheme {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: AppRadii.small),
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         child: DecoratedBox(
           decoration: BoxDecoration(
             gradient: AppGradients.appBar,
@@ -64,7 +64,7 @@ final class AppTheme {
     return ThemeData(
       useMaterial3: true,
       scaffoldBackgroundColor: ColoursLight.background,
-      colorScheme: ColorScheme(
+      colorScheme: const ColorScheme(
         brightness: ColoursLight.brightness,
         primary: ColoursLight.primary,
         primaryContainer: ColoursLight.primaryVariant,
@@ -99,7 +99,7 @@ final class AppTheme {
       floatingActionButtonTheme: FloatingActionButtonThemeData(
         shape: RoundedRectangleBorder(borderRadius: AppRadii.small),
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         child: DecoratedBox(
           decoration: BoxDecoration(
             gradient: AppGradients.appBarDark,
