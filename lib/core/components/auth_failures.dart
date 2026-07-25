@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:temp/core/components/fields.dart';
+import 'package:fortress_chat/core/components/fields.dart';
 
 sealed class AuthFailures extends Equatable {
   final String message;
