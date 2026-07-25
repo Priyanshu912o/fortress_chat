@@ -75,6 +75,12 @@ class _AuthTextFormFieldState extends State<AuthTextFormField> {
         borderRadius: AppRadii.medium,
       ),
       child: TextFormField(
+        onTapOutside: (event) {
+          _focusNode.unfocus();
+        },
+        onEditingComplete: () {
+          _focusNode.nextFocus();
+        },
         validator: widget._validator,
         controller: widget._controller,
         focusNode: _focusNode,
