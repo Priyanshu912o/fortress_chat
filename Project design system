@@ -1,0 +1,54 @@
+# Project Brief: Fortress
+
+## 1. Product Vision
+**Fortress** is a premium, privacy-first messaging application designed to eliminate cryptographic weaknesses found in modern chat platforms. It combines military-grade security with a "vibrant and alive" user experience, ensuring that privacy feels like a luxury, not a compromise.
+
+## 2. Problem Statement
+Current "secure" messengers often suffer from:
+- **Metadata Leakage:** Servers knowing who is talking to whom and when.
+- **High Friction Auth:** Complex key management that confuses non-technical users.
+- **Unwanted Contact:** The "WhatsApp problem" where anyone with a phone number can send unsolicited messages.
+- **Stale UX:** A "utilitarian/hacker" aesthetic that lacks emotional resonance.
+
+## 3. The Fortress Solution
+- **Gmail-Based Identity:** Familiar lookup mechanism using Gmail addresses rather than phone numbers.
+- **The Trust Handshake:** A mandatory three-step mutual consent flow (SYN → SYN-ACK → ACK) before any data is exchanged.
+- **Immersive Security:** Using interactive 3D elements and procedural motion to communicate "active protection" rather than static safety.
+- **Zero-Knowledge Architecture:** Locally generated keys and metadata-stripped routing.
+
+## 4. Key Features & User Flows
+
+### 4.1 Authentication Suite
+- **Immersive Entry:** A Three.js powered 3D glass shield that reacts to user interaction.
+- **Secure Onboarding:** Sign Up flow with real-time entropy/strength indicators.
+- **Verified Identity:** 6-digit email verification to anchor the Gmail-based identity.
+
+### 4.2 The People Hub
+- **Trust Handshake:** Dedicated management of incoming/outgoing connection requests.
+- **Trusted Connections:** A verified-only contact list.
+- **Global Search:** Encrypted search across messages, people, and media.
+
+### 4.3 Conversation Experience
+- **Encrypted Detail:** 1-on-1 chat with real-time delivery status and persistent security banners.
+- **Secure Media:** Blurred previews for incoming media until explicitly decrypted/viewed.
+- **Contextual Profiles:** Quick-access bottom sheets for trust verification and shared media.
+
+## 5. Design Philosophy: "Vibrant & Alive"
+- **Visual Tone:** Rich jewel tones (Fortress Purple, Teal, Pink), smooth low-angle gradients, and glassmorphic depth.
+- **Motion Spec:** Micro-animations for every state transition—breathing FABs, shimmering bubbles, and spring-based interactions.
+- **Ambient Security:** Minimalist shield cues (10dp-12dp) integrated into the UI rather than heavy-handed lock icons.
+
+## 6. Technical Stack (Proposed)
+- **Frontend:** Flutter (Mobile iOS/Android).
+- **Interactive Layers:** Three.js for 3D assets, GLSL for procedural background shaders.
+- **Encryption:** AES-256-GCM for message content, Signal Protocol for double-ratchet key exchange.
+- **Infrastructure:** Metadata-omitting relay servers.
+
+## 7. Current Project Status
+- [x] Design System established (Fortress Light/Dark).
+- [x] Interactive Auth flow (Sign In, Sign Up, Forgot Pwd, Verify).
+- [x] Core Dashboard and Chat Detail designs.
+- [x] People & Handshake management screens.
+- [x] High-fidelity brand assets (Dark Mode optimized logo).
+- [ ] Integration of messaging backend.
+- [ ] Group chat encryption implementation.
