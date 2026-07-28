@@ -165,7 +165,7 @@ class _SignInViewState extends State<SignInView> {
                         builder: (context, state) {
                           return PrimaryButton(
                             onPressed: () {
-                              if (_formState.currentState!.validate()) {
+                              if (_formState.currentState?.validate() ?? false) {
                                 context.read<AuthSignInBloc>().add(
                                   AuthSigningInEvent(
                                     email: _emailController.text,

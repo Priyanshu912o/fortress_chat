@@ -168,7 +168,7 @@ class _SignUpViewState extends State<SignUpView> {
                             builder: (context, state) {
                               return PrimaryButton(
                                 onPressed: () {
-                                  if (_formState.currentState!.validate()) {
+                                  if (_formState.currentState?.validate() ?? false) {
                                     context.read<AuthSignUpBloc>().add(
                                       AuthSigningUpEvent(
                                         name: _nameController.text,
