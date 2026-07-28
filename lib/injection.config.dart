@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:app_links/app_links.dart' as _i327;
 import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -25,8 +26,10 @@ import 'features/authentication/domain/repository/auth_repository.dart'
     as _i938;
 import 'features/authentication/domain/use_cases/check_email_verification_usecase.dart'
     as _i733;
-import 'features/authentication/domain/use_cases/forgot_password_usecase.dart'
-    as _i113;
+import 'features/authentication/domain/use_cases/reset_pasword_usecase.dart'
+    as _i492;
+import 'features/authentication/domain/use_cases/send_reset_password_email_usecase.dart'
+    as _i687;
 import 'features/authentication/domain/use_cases/sign_in_usecase.dart' as _i925;
 import 'features/authentication/domain/use_cases/sign_out_usecase.dart'
     as _i504;
@@ -48,8 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModules = _$RegisterModules();
-    gh.lazySingleton<_i313.AppRouter>(() => _i313.AppRouter());
     gh.lazySingleton<_i59.FirebaseAuth>(() => registerModules.firebaseAuth);
+    gh.lazySingleton<_i327.AppLinks>(() => registerModules.appLinks);
     gh.lazySingleton<_i373.AuthRemoteDataSource>(
       () => _i774.AuthRemoteDataSourceImpl(auth: gh<_i59.FirebaseAuth>()),
     );
@@ -61,8 +64,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i733.CheckEmailVerificationUsecase>(
       () => _i733.CheckEmailVerificationUsecase(gh<_i938.AuthRepository>()),
     );
-    gh.lazySingleton<_i113.ForgotPasswordUsecase>(
-      () => _i113.ForgotPasswordUsecase(gh<_i938.AuthRepository>()),
+    gh.lazySingleton<_i492.ResetPaswordUsecase>(
+      () => _i492.ResetPaswordUsecase(gh<_i938.AuthRepository>()),
+    );
+    gh.lazySingleton<_i687.SendResetPasswordEmailUsecase>(
+      () => _i687.SendResetPasswordEmailUsecase(gh<_i938.AuthRepository>()),
     );
     gh.lazySingleton<_i925.SignInUsecase>(
       () => _i925.SignInUsecase(gh<_i938.AuthRepository>()),
@@ -76,20 +82,28 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i757.VerifyEmailUsecase>(
       () => _i757.VerifyEmailUsecase(gh<_i938.AuthRepository>()),
     );
-    gh.lazySingleton<_i546.AuthenticationBloc>(
-      () => _i546.AuthenticationBloc(
-        checkEmailVerification: gh<_i733.CheckEmailVerificationUsecase>(),
-        verifyEmail: gh<_i757.VerifyEmailUsecase>(),
-        forgotPassword: gh<_i113.ForgotPasswordUsecase>(),
-        signOut: gh<_i504.SignOutUsecase>(),
-        repository: gh<_i938.AuthRepository>(),
-      ),
-    );
     gh.factory<_i462.AuthSignUpBloc>(
       () => _i462.AuthSignUpBloc(signUp: gh<_i907.SignUpUsecase>()),
     );
     gh.factory<_i193.AuthSignInBloc>(
       () => _i193.AuthSignInBloc(signIn: gh<_i925.SignInUsecase>()),
+    );
+    gh.lazySingleton<_i546.AuthenticationBloc>(
+      () => _i546.AuthenticationBloc(
+        checkEmailVerification: gh<_i733.CheckEmailVerificationUsecase>(),
+        verifyEmail: gh<_i757.VerifyEmailUsecase>(),
+        sendResetPasswordEmailUsecase:
+            gh<_i687.SendResetPasswordEmailUsecase>(),
+        signOut: gh<_i504.SignOutUsecase>(),
+        repository: gh<_i938.AuthRepository>(),
+        resetPasword: gh<_i492.ResetPaswordUsecase>(),
+      ),
+    );
+    gh.lazySingleton<_i313.AppRouter>(
+      () => _i313.AppRouter(
+        authBloc: gh<_i546.AuthenticationBloc>(),
+        appLinks: gh<_i327.AppLinks>(),
+      ),
     );
     return this;
   }
