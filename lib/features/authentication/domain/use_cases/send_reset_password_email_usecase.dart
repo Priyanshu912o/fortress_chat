@@ -4,11 +4,11 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class ForgotPasswordUsecase {
+class SendResetPasswordEmailUsecase {
   final AuthRepository _repository;
-  ForgotPasswordUsecase(this._repository);
+  SendResetPasswordEmailUsecase(this._repository);
 
-  Future<Either<AuthFailures,Unit>> call(String email){
-    return _repository.forgotPassword(email);
+  Future<Either<AuthFailures, Unit>> call(String email) {
+    return _repository.sendResetPasswordEmail(email);
   }
 }

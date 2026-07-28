@@ -14,6 +14,7 @@ final class AuthenticatedState extends AuthenticationState {
 }
 final class LoadingState extends AuthenticationState {}
 final class EmailSentState extends AuthenticationState {}
+final class NewPasswordSetState extends AuthenticationState {}
 final class UnAuthenticatedState extends AuthenticationState {}
 final class AuthErrorState extends AuthenticationState {
   final AuthFailures failure;

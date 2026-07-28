@@ -16,7 +16,8 @@ abstract class AuthRepository {
     String password,
   );
   Future<Either<AuthFailures, Unit>> verifyEmail();
-  Future<Either<AuthFailures, Unit>> forgotPassword(String email);
+  Future<Either<AuthFailures, Unit>> sendResetPasswordEmail(String email);
+  Future<Either<AuthFailures, Unit>> resetPassword(String newPassword,String oobCode);
   Future<Either<AuthFailures, bool>> checkEmailVerification();
   Future<Either<AuthFailures, Unit>> signOut();
 }

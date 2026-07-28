@@ -12,5 +12,6 @@ abstract class AuthRemoteDataSource {
   Future<Unit> verifyEmail();
   Future<bool> checkEailVerification();
   Future<Unit> signOut();
-  Future<Unit> forgotPassword(String email);
+  Future<Unit> sendResetPasswordEmail(String email);
+  Future<Unit> resetPasword(String newPassword,String oobCode);
 }

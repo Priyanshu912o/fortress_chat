@@ -31,7 +31,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         email: email,
         password: password,
       );
-      userCredential.user!.updateDisplayName(name);
+      await userCredential.user!.updateDisplayName(name);
       return UserModel.fromFirebaseUserCredentitials(userCredential.user);
     } on FirebaseAuthException catch (e) {
       throw mapFromFirebaseAuthExceptionToAppExceptions(e);
@@ -54,15 +54,31 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<Unit> forgotPassword(String email) async {
-    _auth.sendPasswordResetEmail(email: email);
-    return unit;
+  Future<Unit> sendResetPasswordEmail(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(
+        email: email,
+        actionCodeSettings: ActionCodeSettings(
+          url: 'https://priyanshu912o.github.io/Fortress_site/reset-password',
+          handleCodeInApp: true,
+          androidPackageName: 'com.example.fortress_chat',
+          androidInstallApp: true,
+          androidMinimumVersion: '1',
+          iOSBundleId: 'com.example.fortress_chat',
+        ),
+      );
+      return unit;
+    } on FirebaseAuthException catch (e) {
+      throw mapFromFirebaseAuthExceptionToAppExceptions(e);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
   Future<Unit> verifyEmail() async {
     try {
-      _auth.currentUser!.sendEmailVerification();
+      await _auth.currentUser!.sendEmailVerification();
       return unit;
     } on FirebaseAuthException catch (e) {
       throw mapFromFirebaseAuthExceptionToAppExceptions(e);
@@ -80,4 +96,14 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         ? null
         : UserModel.fromFirebaseUserCredentitials(user);
   });
+
+  @override
+  Future<Unit> resetPasword(String newPassword, String oobCode) async {
+    try {
+      await _auth.confirmPasswordReset(code: oobCode, newPassword: newPassword);
+      return unit;
+    } on FirebaseAuthException catch (e) {
+      throw mapFromFirebaseAuthExceptionToAppExceptions(e);
+    }
+  }
 }

@@ -59,9 +59,19 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<AuthFailures, Unit>> forgotPassword(String email) async {
+  Future<Either<AuthFailures, Unit>> sendResetPasswordEmail(String email) async {
     try {
-      final result = await _remoteAuth.forgotPassword(email);
+      final result = await _remoteAuth.sendResetPasswordEmail(email);
+      return Right(result);
+    } on AuthExceptions catch (e) {
+      return Left(mapFromFirebaseAuthExceptionToAuthFailure(e));
+    }
+  }
+
+  @override
+  Future<Either<AuthFailures, Unit>> resetPassword(String newPassword,String oobCode) async{
+    try {
+      final result = await _remoteAuth.resetPasword(newPassword,oobCode);
       return Right(result);
     } on AuthExceptions catch (e) {
       return Left(mapFromFirebaseAuthExceptionToAuthFailure(e));
@@ -76,4 +86,5 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Stream<UserEntity?> get authStateChanges => _remoteAuth.userChanges;
+  
 }
