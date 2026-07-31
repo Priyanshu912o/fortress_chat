@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.fortress_chat</string>
+	<string>com.example.Fortress</string>
 	<key>PROJECT_ID</key>
 	<string>fortress-chat-3e3f8</string>
 	<key>STORAGE_BUCKET</key>

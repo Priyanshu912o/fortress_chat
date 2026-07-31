@@ -1,11 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fortress_chat/app_router.dart';
-import 'package:fortress_chat/core/theme/app_theme.dart';
-import 'package:fortress_chat/features/authentication/presentation/blocs/global_auth_bloc/authentication_bloc.dart';
-import 'package:fortress_chat/firebase_options.dart';
-import 'package:fortress_chat/injection.dart';
+import 'package:Fortress/app_router.dart';
+import 'package:Fortress/core/theme/app_theme.dart';
+import 'package:Fortress/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:Fortress/firebase_options.dart';
+import 'package:Fortress/injection.dart';
 import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 

@@ -1,6 +1,6 @@
 {
-    "name": "fortress_chat",
-    "short_name": "fortress_chat",
+    "name": "Fortress",
+    "short_name": "Fortress",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

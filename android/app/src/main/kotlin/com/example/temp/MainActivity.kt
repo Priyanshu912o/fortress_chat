@@ -1,4 +1,4 @@
-package com.example.fortress_chat
+package com.example.Fortress
 
 import io.flutter.embedding.android.FlutterActivity
 
