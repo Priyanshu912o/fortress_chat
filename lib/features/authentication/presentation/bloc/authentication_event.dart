@@ -11,7 +11,8 @@ final class AuthUserChanged extends AuthenticationEvent{
   AuthUserChanged({required this.user});
 }
 
-final class VerifyEmail extends AuthenticationEvent{}
+final class ResendVerifyEmail extends AuthenticationEvent{}
+
 final class SignOutEvent extends AuthenticationEvent{}
 final class SendResetPasswordEmailEvent extends AuthenticationEvent{
   final String email;
@@ -27,4 +28,31 @@ final class ResetPasswordEvent extends AuthenticationEvent{
 
   @override
   List get props=>[newPassword,oobCode];
+}
+
+final class CheckEmailVerificationEvent extends AuthenticationEvent{}
+
+final class AuthSigningInEvent extends AuthenticationEvent {
+  final String email;
+  final String password;
+
+  AuthSigningInEvent({required this.email, required this.password});
+
+  @override
+  List<Object> get props => [email,password];
+}
+
+final class AuthSigningUpEvent extends AuthenticationEvent {
+  final String name;
+  final String email;
+  final String password;
+
+  AuthSigningUpEvent({
+    required this.name,
+    required this.email,
+    required this.password,
+  });
+
+  @override
+  List<Object> get props => [name, email, password];
 }
