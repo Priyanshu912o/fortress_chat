@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:fortress_chat/core/theme/app_elevation.dart';
-import 'package:fortress_chat/core/theme/app_radii.dart';
-import 'package:fortress_chat/core/theme/app_spacing.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/circle.dart';
+import 'package:Fortress/core/theme/app_elevation.dart';
+import 'package:Fortress/core/theme/app_radii.dart';
+import 'package:Fortress/core/theme/app_spacing.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/circle.dart';
 
 class CircleGradient extends StatelessWidget {
   const CircleGradient({super.key});

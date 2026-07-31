@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fortress_chat/core/components/app_exceptions.dart';
+import 'package:Fortress/core/components/app_exceptions.dart';
 
 AuthExceptions mapFromFirebaseAuthExceptionToAppExceptions(
   FirebaseAuthException exception,

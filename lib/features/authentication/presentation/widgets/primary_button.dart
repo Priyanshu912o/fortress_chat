@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fortress_chat/core/theme/app_gradients.dart';
-import 'package:fortress_chat/core/theme/app_radii.dart';
-import 'package:fortress_chat/core/theme/app_spacing.dart';
+import 'package:Fortress/core/theme/app_gradients.dart';
+import 'package:Fortress/core/theme/app_radii.dart';
+import 'package:Fortress/core/theme/app_spacing.dart';
 
 class PrimaryButton extends StatelessWidget {
   final VoidCallback _onPressed;

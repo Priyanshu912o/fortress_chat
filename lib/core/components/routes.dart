@@ -5,6 +5,8 @@ enum Routes{
   signUp,
   forgotPassword,
   resetPassword,
-  emailsent,
-  passwordreset,
+  resetpasswordemailsent,
+  verifyemailsent,
+  newpasswordset,
+  loading,
 }

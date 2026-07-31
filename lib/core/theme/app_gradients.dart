@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:fortress_chat/core/theme/colours_dark.dart';
-import 'package:fortress_chat/core/theme/colours_light.dart';
+import 'package:Fortress/core/theme/colours_dark.dart';
+import 'package:Fortress/core/theme/colours_light.dart';
 
 /// Fortress Gradient Tokens
 /// All gradients use subtle, smooth 2–3 stop transitions.

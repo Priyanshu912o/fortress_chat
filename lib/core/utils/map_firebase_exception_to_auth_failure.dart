@@ -1,6 +1,6 @@
-import 'package:fortress_chat/core/components/app_exceptions.dart';
-import 'package:fortress_chat/core/components/auth_failures.dart';
-import 'package:fortress_chat/core/components/fields.dart';
+import 'package:Fortress/core/components/app_exceptions.dart';
+import 'package:Fortress/core/components/auth_failures.dart';
+import 'package:Fortress/core/components/fields.dart';
 
 AuthFailures mapFromFirebaseAuthExceptionToAuthFailure(
   AuthExceptions exception,
@@ -38,7 +38,7 @@ AuthFailures mapFromFirebaseAuthExceptionToAuthFailure(
       );
     case TooManyRequestsException():
       return const TooManyRequestsFailure(
-        message: 'Too many atfortress_chatts. Please try again later.',
+        message: 'Too many atFortressts. Please try again later.',
         fields: [Fields.snackbar],
       );
     case PasswordsDoNotMatchException():

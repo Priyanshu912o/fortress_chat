@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fortress_chat/core/utils/map_firebase_exception_to_app_exceptions.dart';
-import 'package:fortress_chat/features/authentication/data/data_sources/auth_remote_data_source.dart';
-import 'package:fortress_chat/features/authentication/data/model/user_model.dart';
+import 'package:Fortress/core/utils/map_firebase_exception_to_app_exceptions.dart';
+import 'package:Fortress/features/authentication/data/data_sources/auth_remote_data_source.dart';
+import 'package:Fortress/features/authentication/data/model/user_model.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 
@@ -32,6 +32,7 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         password: password,
       );
       await userCredential.user!.updateDisplayName(name);
+      await _auth.currentUser!.sendEmailVerification();
       return UserModel.fromFirebaseUserCredentitials(userCredential.user);
     } on FirebaseAuthException catch (e) {
       throw mapFromFirebaseAuthExceptionToAppExceptions(e);
@@ -48,9 +49,14 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     }
   }
 
-  Future<Unit> checkEmailVerification() {
-    // TODO: implement checkEmailVerification
-    throw UnimplementedError();
+  @override
+  Future<Unit> checkEmailVerification() async {
+    try {
+      await _auth.currentUser?.reload();
+      return unit;
+    } on FirebaseAuthException catch (e) {
+      throw mapFromFirebaseAuthExceptionToAppExceptions(e);
+    }
   }
 
   @override
@@ -61,10 +67,10 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
         actionCodeSettings: ActionCodeSettings(
           url: 'https://priyanshu912o.github.io/Fortress_site/reset-password',
           handleCodeInApp: true,
-          androidPackageName: 'com.example.fortress_chat',
+          androidPackageName: 'com.example.Fortress',
           androidInstallApp: true,
           androidMinimumVersion: '1',
-          iOSBundleId: 'com.example.fortress_chat',
+          iOSBundleId: 'com.example.Fortress',
         ),
       );
       return unit;
@@ -86,11 +92,6 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
   }
 
   @override
-  Future<bool> checkEailVerification() async {
-    return _auth.currentUser!.emailVerified;
-  }
-
-  @override
   Stream<UserModel?> get userChanges => _auth.userChanges().map((user) {
     return (user == null)
         ? null
@@ -105,5 +106,11 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDataSource {
     } on FirebaseAuthException catch (e) {
       throw mapFromFirebaseAuthExceptionToAppExceptions(e);
     }
+  }
+
+  @override
+  Future<UserModel?> getCurrentUser() async {
+    final user = _auth.currentUser;
+    return user != null ? UserModel.fromFirebaseUserCredentitials(user) : null;
   }
 }
