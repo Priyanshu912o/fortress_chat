@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:fortress_chat/features/authentication/domain/entities/user_entity.dart';
+import 'package:Fortress/features/authentication/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
   const UserModel({

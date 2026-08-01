@@ -36,12 +36,8 @@ import 'features/authentication/domain/use_cases/sign_out_usecase.dart'
 import 'features/authentication/domain/use_cases/sign_up_usecase.dart' as _i907;
 import 'features/authentication/domain/use_cases/verify_email_usecase.dart'
     as _i757;
-import 'features/authentication/presentation/blocs/global_auth_bloc/authentication_bloc.dart'
-    as _i546;
-import 'features/authentication/presentation/blocs/signin_bloc/auth_signin_bloc.dart'
-    as _i193;
-import 'features/authentication/presentation/blocs/signup_bloc/auth_signup_bloc.dart'
-    as _i462;
+import 'features/authentication/presentation/bloc/authentication_bloc.dart'
+    as _i736;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -82,14 +78,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i757.VerifyEmailUsecase>(
       () => _i757.VerifyEmailUsecase(gh<_i938.AuthRepository>()),
     );
-    gh.factory<_i462.AuthSignUpBloc>(
-      () => _i462.AuthSignUpBloc(signUp: gh<_i907.SignUpUsecase>()),
-    );
-    gh.factory<_i193.AuthSignInBloc>(
-      () => _i193.AuthSignInBloc(signIn: gh<_i925.SignInUsecase>()),
-    );
-    gh.lazySingleton<_i546.AuthenticationBloc>(
-      () => _i546.AuthenticationBloc(
+    gh.lazySingleton<_i736.AuthenticationBloc>(
+      () => _i736.AuthenticationBloc(
         checkEmailVerification: gh<_i733.CheckEmailVerificationUsecase>(),
         verifyEmail: gh<_i757.VerifyEmailUsecase>(),
         sendResetPasswordEmailUsecase:
@@ -97,11 +87,13 @@ extension GetItInjectableX on _i174.GetIt {
         signOut: gh<_i504.SignOutUsecase>(),
         repository: gh<_i938.AuthRepository>(),
         resetPasword: gh<_i492.ResetPaswordUsecase>(),
+        signIn: gh<_i925.SignInUsecase>(),
+        signUp: gh<_i907.SignUpUsecase>(),
       ),
     );
     gh.lazySingleton<_i313.AppRouter>(
       () => _i313.AppRouter(
-        authBloc: gh<_i546.AuthenticationBloc>(),
+        authBloc: gh<_i736.AuthenticationBloc>(),
         appLinks: gh<_i327.AppLinks>(),
       ),
     );

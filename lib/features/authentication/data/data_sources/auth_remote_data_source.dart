@@ -1,4 +1,4 @@
-import 'package:fortress_chat/features/authentication/domain/entities/user_entity.dart';
+import 'package:Fortress/features/authentication/domain/entities/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class AuthRemoteDataSource {
@@ -10,8 +10,9 @@ abstract class AuthRemoteDataSource {
     String name,
   );
   Future<Unit> verifyEmail();
-  Future<bool> checkEailVerification();
+  Future<Unit> checkEmailVerification();
   Future<Unit> signOut();
   Future<Unit> sendResetPasswordEmail(String email);
   Future<Unit> resetPasword(String newPassword,String oobCode);
+  Future<UserEntity?> getCurrentUser();
 }

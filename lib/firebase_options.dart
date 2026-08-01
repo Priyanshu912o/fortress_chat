@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '856151324866',
     projectId: 'fortress-chat-3e3f8',
     storageBucket: 'fortress-chat-3e3f8.firebasestorage.app',
-    iosBundleId: 'com.example.fortress_chat',
+    iosBundleId: 'com.example.Fortress',
   );
 }
