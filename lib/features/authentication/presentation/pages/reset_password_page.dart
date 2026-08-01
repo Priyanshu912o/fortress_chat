@@ -1,15 +1,13 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fortress_chat/core/components/routes.dart';
-import 'package:fortress_chat/core/theme/app_elevation.dart';
-import 'package:fortress_chat/core/theme/app_radii.dart';
-import 'package:fortress_chat/core/theme/app_spacing.dart';
-import 'package:fortress_chat/features/authentication/presentation/blocs/global_auth_bloc/authentication_bloc.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/auth_textformfield.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/primary_button.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/validators.dart';
+import 'package:Fortress/core/components/routes.dart';
+import 'package:Fortress/core/theme/app_elevation.dart';
+import 'package:Fortress/core/theme/app_radii.dart';
+import 'package:Fortress/core/theme/app_spacing.dart';
+import 'package:Fortress/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/auth_textformfield.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/primary_button.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/validators.dart';
 import 'package:go_router/go_router.dart';
 
 class ResetPasswordPage extends StatefulWidget {
@@ -64,153 +62,124 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
             );
           } else if (state is NewPasswordSetState) {
-            context.goNamed(Routes.passwordreset.toString());
+            context.goNamed(Routes.newpasswordset.toString());
           }
         },
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: AppSpacing.space48),
-          child: Container(
-            margin: const EdgeInsets.all(AppSpacing.marginMobile),
-            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.space24),
-            decoration: BoxDecoration(
-              boxShadow: AppElevation.shadowMedium,
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: AppRadii.xLarge,
-            ),
-
-            child: Form(
-              key: _globalKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                spacing: AppSpacing.space24,
-                children: [
-                  Stack(
+          child: Form(
+            key: _globalKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              spacing: AppSpacing.space24,
+              children: [
+                SizedBox(
+                  height: 100,
+                  width: 100,
+                  child: Image.asset(
+                    MediaQuery.platformBrightnessOf(context) == Brightness.light
+                        ? 'assets/icon/logo_light.png'
+                        : 'assets/icon/logo_dark.png',
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.all(AppSpacing.marginMobile),
+                  padding: const EdgeInsets.all(AppSpacing.space24),
+                  decoration: BoxDecoration(
+                    boxShadow: AppElevation.shadowMedium,
+                    color: Theme.of(context).colorScheme.surface,
+                    borderRadius: AppRadii.xLarge,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    spacing: AppSpacing.space32,
                     children: [
-                      Container(
-                        height: 7,
-                        margin: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.space32,
+                      Text(
+                        'New Password',
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      Text(
+                        'Create a strong, unique password to \n secure your digital sanctuary.',
+                        style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                          fontWeight: FontWeight.w500,
                         ),
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(AppRadii.xLargeValue),
-                            bottomRight: Radius.circular(AppRadii.xLargeValue),
-                          ),
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      AuthTextFormField(
+                        prefixIcon: Icons.key_outlined,
+                        focusedPrefixIcon: Icons.key,
+                        hintText: 'Create a strong password',
+                        controller: _passwordController,
+                        lable: 'New Password 💪',
+                        helperText: 'Not 12345678 plss 🙏',
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: Validators.validator['password'],
+                        keyboardType: TextInputType.visiblePassword,
+                        suffixIcon: const Icon(Icons.visibility_off_outlined),
+                        focusedSuffixIcon: const Icon(Icons.visibility_off),
+                        tappedSuffixIcon: const Icon(Icons.visibility),
+                        isObscure: true,
                       ),
 
-                      ClipRRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 6),
-                          child: Container(
-                            height: 12,
-                            margin: const EdgeInsets.symmetric(
-                              horizontal: AppSpacing.space24,
-                            ),
-                            color: Colors.transparent,
-                          ),
-                        ),
+                      AuthTextFormField(
+                        prefixIcon: Icons.lock_reset,
+                        focusedPrefixIcon: Icons.lock_reset_outlined,
+                        hintText: 'How should we call you?',
+                        controller: _confirmPasswordController,
+                        validator: (value) {
+                          if (value == null || value.trim().isEmpty) {
+                            return 'Re-enter your password';
+                          }
+                          if (_passwordController.text != value) {
+                            return 'Passwords do not match.';
+                          }
+                          return null;
+                        },
+                        lable: 'Confirm New Password 👍',
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        keyboardType: TextInputType.visiblePassword,
+                        suffixIcon: const Icon(Icons.visibility_off_outlined),
+                        focusedSuffixIcon: const Icon(Icons.visibility_off),
+                        tappedSuffixIcon: const Icon(Icons.visibility),
+                        isObscure: true,
+                      ),
+
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          return PrimaryButton(
+                            onPressed: () {
+                              if (_globalKey.currentState?.validate() ??
+                                  false) {
+                                context.read<AuthenticationBloc>().add(
+                                  ResetPasswordEvent(
+                                    newPassword: _passwordController.text,
+                                    oobCode: widget.oobCode,
+                                  ),
+                                );
+                              }
+                            },
+                            text: 'Reset Password',
+                            isLoading: state is LoadingState,
+                          );
+                        },
                       ),
                     ],
                   ),
-
-                  CircleAvatar(
-                    radius: Theme.of(context).textTheme.headlineLarge!.fontSize,
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.onInverseSurface.withValues(alpha: 0.2),
-                    child: Icon(
-                      Icons.lock_reset_rounded,
-                      size:
-                          Theme.of(context).textTheme.headlineLarge!.fontSize! *
-                          1.2,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    context.goNamed(Routes.signIn.toString());
+                  },
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.arrow_back),
+                      Text(' back to Sign In'),
+                    ],
                   ),
-                  Text(
-                    'New Password',
-                    style: Theme.of(context).textTheme.headlineLarge,
-                  ),
-                  Text(
-                    'Create a strong, unique password to \n secure your digital sanctuary.',
-                    style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      fontWeight: FontWeight.w500,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                  AuthTextFormField(
-                    prefixIcon: Icons.key_outlined,
-                    focusedPrefixIcon: Icons.key,
-                    hintText: 'Create a strong password',
-                    controller: _passwordController,
-                    lable: 'New Password 💪',
-                    helperText: 'Not 12345678 plss 🙏',
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: Validators.validator['password'],
-                    keyboardType: TextInputType.visiblePassword,
-                    suffixIcon: const Icon(Icons.visibility_off_outlined),
-                    focusedSuffixIcon: const Icon(Icons.visibility_off),
-                    tappedSuffixIcon: const Icon(Icons.visibility),
-                    isObscure: true,
-                  ),
-
-                  AuthTextFormField(
-                    prefixIcon: Icons.lock_reset,
-                    focusedPrefixIcon: Icons.lock_reset_outlined,
-                    hintText: 'How should we call you?',
-                    controller: _confirmPasswordController,
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Re-enter your password';
-                      }
-                      if (_passwordController.text != value) {
-                        return 'Passwords do not match.';
-                      }
-                      return null;
-                    },
-                    lable: 'Confirm New Password 👍',
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    keyboardType: TextInputType.visiblePassword,
-                    suffixIcon: const Icon(Icons.visibility_off_outlined),
-                    focusedSuffixIcon: const Icon(Icons.visibility_off),
-                    tappedSuffixIcon: const Icon(Icons.visibility),
-                    isObscure: true,
-                  ),
-
-                  BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                    builder: (context, state) {
-                      return PrimaryButton(
-                        onPressed: () {
-                          if (_globalKey.currentState?.validate() ?? false) {
-                            context.read<AuthenticationBloc>().add(
-                              ResetPasswordEvent(
-                                newPassword: _passwordController.text,
-                                oobCode: widget.oobCode,
-                              ),
-                            );
-                          }
-                        },
-                        text: 'Reset Password',
-                        isLoading: state is LoadingState,
-                      );
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.goNamed(Routes.signIn.toString());
-                    },
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.arrow_back),
-                        Text(' back to Sign In'),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

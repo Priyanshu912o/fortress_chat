@@ -2,14 +2,14 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fortress_chat/core/components/routes.dart';
-import 'package:fortress_chat/core/theme/app_elevation.dart';
-import 'package:fortress_chat/core/theme/app_radii.dart';
-import 'package:fortress_chat/core/theme/app_spacing.dart';
-import 'package:fortress_chat/features/authentication/presentation/blocs/global_auth_bloc/authentication_bloc.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/auth_textformfield.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/primary_button.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/validators.dart';
+import 'package:Fortress/core/components/routes.dart';
+import 'package:Fortress/core/theme/app_elevation.dart';
+import 'package:Fortress/core/theme/app_radii.dart';
+import 'package:Fortress/core/theme/app_spacing.dart';
+import 'package:Fortress/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/auth_textformfield.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/primary_button.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/validators.dart';
 import 'package:go_router/go_router.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -57,8 +57,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 margin: const EdgeInsets.all(AppSpacing.marginDesktop),
               ),
             );
-          }else if(state is EmailSentState){
-            context.goNamed(Routes.emailsent.toString());
+          }else if(state is ResetPasswordEmailSentState){
+            context.goNamed(Routes.resetpasswordemailsent.toString());
           }
         },
         child: SingleChildScrollView(

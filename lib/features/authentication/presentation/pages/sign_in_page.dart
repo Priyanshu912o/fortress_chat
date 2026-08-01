@@ -1,37 +1,24 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fortress_chat/core/components/routes.dart';
-import 'package:fortress_chat/core/theme/app_elevation.dart';
-import 'package:fortress_chat/core/theme/app_radii.dart';
-import 'package:fortress_chat/core/theme/app_spacing.dart';
-import 'package:fortress_chat/features/authentication/presentation/blocs/signin_bloc/auth_signin_bloc.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/auth_textformfield.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/primary_button.dart';
-import 'package:fortress_chat/features/authentication/presentation/widgets/validators.dart';
-import 'package:get_it/get_it.dart';
+import 'package:Fortress/core/components/routes.dart';
+import 'package:Fortress/core/theme/app_elevation.dart';
+import 'package:Fortress/core/theme/app_radii.dart';
+import 'package:Fortress/core/theme/app_spacing.dart';
+import 'package:Fortress/features/authentication/presentation/bloc/authentication_bloc.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/auth_textformfield.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/primary_button.dart';
+import 'package:Fortress/features/authentication/presentation/widgets/validators.dart';
 import 'package:go_router/go_router.dart';
 
-class SignInPage extends StatelessWidget {
+class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GetIt.instance<AuthSignInBloc>(),
-      child: const SignInView(),
-    );
-  }
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class SignInView extends StatefulWidget {
-  const SignInView({super.key});
-
-  @override
-  State<SignInView> createState() => _SignInViewState();
-}
-
-class _SignInViewState extends State<SignInView> {
+class _SignInPageState extends State<SignInPage> {
   final GlobalKey<FormState> _formState = GlobalKey<FormState>();
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
@@ -65,9 +52,9 @@ class _SignInViewState extends State<SignInView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<AuthSignInBloc, AuthSignInState>(
+      body: BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: (context, state) {
-          if (state is AuthSignInFailureState) {
+          if (state is AuthErrorState) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 elevation: AppElevation.small,
@@ -161,12 +148,12 @@ class _SignInViewState extends State<SignInView> {
                         tappedSuffixIcon: const Icon(Icons.visibility),
                         isObscure: true,
                       ),
-                      BlocBuilder<AuthSignInBloc, AuthSignInState>(
+                      BlocBuilder<AuthenticationBloc, AuthenticationState>(
                         builder: (context, state) {
                           return PrimaryButton(
                             onPressed: () {
                               if (_formState.currentState?.validate() ?? false) {
-                                context.read<AuthSignInBloc>().add(
+                                context.read<AuthenticationBloc>().add(
                                   AuthSigningInEvent(
                                     email: _emailController.text,
                                     password: _passwordController.text,
@@ -175,7 +162,7 @@ class _SignInViewState extends State<SignInView> {
                               }
                             },
                             text: 'Sign In',
-                            isLoading: state is AuthSignInLoadingState,
+                            isLoading: state is LoadingState,
                           );
                         },
                       ),
