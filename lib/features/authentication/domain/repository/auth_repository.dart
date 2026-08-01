@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:fortress_chat/core/components/auth_failures.dart';
-import 'package:fortress_chat/features/authentication/domain/entities/user_entity.dart';
+import 'package:Fortress/core/components/auth_failures.dart';
+import 'package:Fortress/features/authentication/domain/entities/user_entity.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract class AuthRepository {
@@ -18,6 +18,7 @@ abstract class AuthRepository {
   Future<Either<AuthFailures, Unit>> verifyEmail();
   Future<Either<AuthFailures, Unit>> sendResetPasswordEmail(String email);
   Future<Either<AuthFailures, Unit>> resetPassword(String newPassword,String oobCode);
-  Future<Either<AuthFailures, bool>> checkEmailVerification();
+  Future<Either<AuthFailures, Unit>> checkEmailVerification();
   Future<Either<AuthFailures, Unit>> signOut();
+  Future<Either<AuthFailures, UserEntity?>> getCurrentUser();
 }
