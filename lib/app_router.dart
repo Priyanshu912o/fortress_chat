@@ -1,9 +1,8 @@
-import 'package:app_links/app_links.dart';
 import 'package:Fortress/core/components/routes.dart';
 import 'package:Fortress/core/utils/stream_to_listenable.dart';
 import 'package:Fortress/core/widgets/loading_page.dart';
+import 'package:Fortress/core/widgets/scaffold_with_navbar.dart';
 import 'package:Fortress/core/widgets/splash.dart';
-import 'package:Fortress/features/Chats/presentation/pages/all_chats.dart';
 import 'package:Fortress/features/authentication/presentation/bloc/authentication_bloc.dart';
 import 'package:Fortress/features/authentication/presentation/pages/forgot_password_page.dart';
 import 'package:Fortress/features/authentication/presentation/pages/password_reset_email_sent_page.dart';
@@ -12,6 +11,12 @@ import 'package:Fortress/features/authentication/presentation/pages/reset_passwo
 import 'package:Fortress/features/authentication/presentation/pages/sign_in_page.dart';
 import 'package:Fortress/features/authentication/presentation/pages/sign_up_page.dart';
 import 'package:Fortress/features/authentication/presentation/pages/verify_email_page.dart';
+import 'package:Fortress/features/conversations/presentation/pages/chats.dart';
+import 'package:Fortress/features/messaging/presentation/pages/messages_page.dart';
+import 'package:Fortress/features/people/presentation/pages/people.dart';
+import 'package:Fortress/features/search/presentation/pages/search_page.dart';
+import 'package:Fortress/features/settings/presentation/pages/settings_page.dart';
+import 'package:app_links/app_links.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 
@@ -63,15 +68,67 @@ class AppRouter {
         path: '/splash',
         builder: (context, state) => const SplashPage(),
       ),
+      StatefulShellRoute.indexedStack(
+        builder: (context, state, navigationShell) {
+          return ScaffoldWithNavbar(navigationShell: navigationShell);
+        },
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: Routes.home.toString(),
+                path: '/home',
+                builder: (context, state) => const ChatsPage(),
+                routes: [
+                  GoRoute(
+                    name: Routes.chat.toString(),
+                    path: 'chat/:chatRoomId',
+                    builder: (context, state) {
+                      final chatRoomId = state.pathParameters['chatRoomId'] ?? '';
+                      final chatRoomName = state.extra as String?;
+                      return MessagesPage(
+                        chatRoomId: chatRoomId,
+                        chatRoomName: chatRoomName,
+                      );
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: Routes.people.toString(),
+                path: '/people',
+                builder: (context, state) => const PeoplePage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: Routes.search.toString(),
+                path: '/search',
+                builder: (context, state) => const SearchPage(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                name: Routes.settings.toString(),
+                path: '/settings',
+                builder: (context, state) => const SettingsPage(),
+              ),
+            ],
+          ),
+        ],
+      ),
       GoRoute(
         name: Routes.signIn.toString(),
         path: '/signin',
         builder: (context, state) => const SignInPage(),
-      ),
-      GoRoute(
-        name: Routes.home.toString(),
-        path: '/home',
-        builder: (context, state) => const AllChats(),
       ),
       GoRoute(
         name: Routes.signUp.toString(),
@@ -117,7 +174,6 @@ class AppRouter {
       final resetPassword = state.matchedLocation == '/resetpassword';
       final newPasswordSet = state.matchedLocation == '/passwordset';
       final verifyEmail = state.matchedLocation == '/verifyemail';
-      final home = state.matchedLocation == '/home';
       final resetPasswordEmailSent =
           state.matchedLocation == '/resetpasswordemailsent';
 
@@ -136,10 +192,19 @@ class AppRouter {
       }
       if (authState is AuthenticatedState) {
         final isEmailVerified = authState.user.isEmailVerified;
-        if(isEmailVerified){
-          return home?null:'/home';
-        }else{
-          return verifyEmail?null:'/verifyemail';
+        if (isEmailVerified) {
+          return (signingUp ||
+                  signingIn ||
+                  forgotPassword ||
+                  resetPasswordEmailSent ||
+                  resetPassword ||
+                  newPasswordSet ||
+                  loading ||
+                  verifyEmail)
+              ? '/home'
+              : null;
+        } else {
+          return verifyEmail ? null : '/verifyemail';
         }
       }
       return null;

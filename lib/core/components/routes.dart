@@ -1,4 +1,4 @@
-enum Routes{
+enum Routes {
   home,
   signIn,
   splash,
@@ -9,4 +9,8 @@ enum Routes{
   verifyemailsent,
   newpasswordset,
   loading,
+  chat,
+  settings,
+  search,
+  people,
 }
