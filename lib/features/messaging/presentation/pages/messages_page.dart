@@ -279,5 +279,5 @@ class _MessagesViewState extends State<_MessagesView> {
         );
       },
     );
-  }f
+  }
 }
