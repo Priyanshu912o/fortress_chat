@@ -11,6 +11,14 @@ abstract final class AppRadii {
   static const double xLargeValue = 24;     // Bottom sheets, modals
   static const double circleValue = 999;    // Avatars, FAB
 
+  // ── Component Aliases ──────────────────────────────────────────────────────
+  static const double card = mediumValue;
+  static const double button = smallValue;
+  static const double sheet = xLargeValue;
+  static const double input = mediumValue;
+  static const double dialog = largeValue;
+  static const double tag = smallValue;
+
   // ── BorderRadius Shortcuts ────────────────────────────────────────────────
 
   static final BorderRadius small = BorderRadius.circular(smallValue);     // Chips, small buttons

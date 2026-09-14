@@ -11,6 +11,13 @@ abstract final class AppSpacing {
   static const double space32 = 32;    // Major section spacing
   static const double space48 = 48;    // Between page blocks
 
+  // ── Standard Size Aliases ──────────────────────────────────────────────────
+  static const double xs = space4;
+  static const double sm = space8;
+  static const double md = space16;
+  static const double lg = space24;
+  static const double xl = space32;
+
   // ── Page Margins ──────────────────────────────────────────────────────────
 
   static const double marginMobile = space16;    // Horizontal page padding on phones
