@@ -138,6 +138,7 @@ import 'features/settings/domain/repositories/settings_repository.dart'
     as _i309;
 import 'features/settings/domain/usecases/clear_local_cache_usecase.dart'
     as _i1062;
+import 'features/settings/domain/usecases/delete_account_usecase.dart' as _i175;
 import 'features/settings/domain/usecases/get_current_user_usecase.dart'
     as _i952;
 import 'features/settings/domain/usecases/sign_out_usecase.dart' as _i400;
@@ -166,9 +167,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i101.SearchLocalDataSource>(
       () => _i85.SearchLocalDataSourceImpl(gh<_i111.AppDatabase>()),
-    );
-    gh.lazySingleton<_i450.SettingsRemoteDataSource>(
-      () => _i363.SettingsRemoteDataSourceImpl(gh<_i59.FirebaseAuth>()),
     );
     gh.lazySingleton<_i316.PeopleLocalDataSource>(
       () => _i502.PeopleLocalDataSourceImpl(gh<_i111.AppDatabase>()),
@@ -205,20 +203,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i59.FirebaseAuth>(),
       ),
     );
-    gh.lazySingleton<_i309.SettingsRepository>(
-      () => _i113.SettingsRepositoryImpl(
-        gh<_i428.SettingsLocalDataSource>(),
-        gh<_i450.SettingsRemoteDataSource>(),
+    gh.lazySingleton<_i450.SettingsRemoteDataSource>(
+      () => _i363.SettingsRemoteDataSourceImpl(
+        gh<_i59.FirebaseAuth>(),
+        gh<_i871.ApiClient>(),
       ),
-    );
-    gh.lazySingleton<_i1062.ClearLocalCacheUsecase>(
-      () => _i1062.ClearLocalCacheUsecase(gh<_i309.SettingsRepository>()),
-    );
-    gh.lazySingleton<_i952.GetCurrentUserUsecase>(
-      () => _i952.GetCurrentUserUsecase(gh<_i309.SettingsRepository>()),
-    );
-    gh.lazySingleton<_i400.SignOutUsecase>(
-      () => _i400.SignOutUsecase(gh<_i309.SettingsRepository>()),
     );
     gh.lazySingleton<_i348.PeopleRemoteDataSource>(
       () => _i402.PeopleRemoteDataSourceImpl(
@@ -278,12 +267,23 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i260.ConversationsLocalDataSource>(),
       ),
     );
-    gh.factory<_i421.SettingsBloc>(
-      () => _i421.SettingsBloc(
-        gh<_i952.GetCurrentUserUsecase>(),
-        gh<_i1062.ClearLocalCacheUsecase>(),
-        gh<_i400.SignOutUsecase>(),
+    gh.lazySingleton<_i309.SettingsRepository>(
+      () => _i113.SettingsRepositoryImpl(
+        gh<_i428.SettingsLocalDataSource>(),
+        gh<_i450.SettingsRemoteDataSource>(),
       ),
+    );
+    gh.lazySingleton<_i1062.ClearLocalCacheUsecase>(
+      () => _i1062.ClearLocalCacheUsecase(gh<_i309.SettingsRepository>()),
+    );
+    gh.lazySingleton<_i175.DeleteAccountUsecase>(
+      () => _i175.DeleteAccountUsecase(gh<_i309.SettingsRepository>()),
+    );
+    gh.lazySingleton<_i952.GetCurrentUserUsecase>(
+      () => _i952.GetCurrentUserUsecase(gh<_i309.SettingsRepository>()),
+    );
+    gh.lazySingleton<_i400.SignOutUsecase>(
+      () => _i400.SignOutUsecase(gh<_i309.SettingsRepository>()),
     );
     gh.lazySingleton<_i736.AuthenticationBloc>(
       () => _i736.AuthenticationBloc(
@@ -337,6 +337,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i190.WatchRealtimeEventsUsecase>(
       () => _i190.WatchRealtimeEventsUsecase(gh<_i662.MessagingRepository>()),
+    );
+    gh.factory<_i421.SettingsBloc>(
+      () => _i421.SettingsBloc(
+        gh<_i952.GetCurrentUserUsecase>(),
+        gh<_i1062.ClearLocalCacheUsecase>(),
+        gh<_i400.SignOutUsecase>(),
+        gh<_i175.DeleteAccountUsecase>(),
+      ),
     );
     gh.lazySingleton<_i333.AcceptConnectionRequestUsecase>(
       () => _i333.AcceptConnectionRequestUsecase(gh<_i888.PeopleRepository>()),

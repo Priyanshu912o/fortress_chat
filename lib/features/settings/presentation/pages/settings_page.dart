@@ -12,6 +12,8 @@ import '../widgets/settings_card.dart';
 import '../widgets/settings_profile_card.dart';
 import '../widgets/settings_section_title.dart';
 import '../widgets/sign_out_dialog.dart';
+import '../widgets/delete_account_dialog.dart';
+
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -173,27 +175,62 @@ class _SettingsView extends StatelessWidget {
               // Account & Sign Out
               const SettingsSectionTitle(title: 'ACCOUNT'),
               SettingsCard(
-                child: ListTile(
-                  leading: const Icon(Icons.logout_rounded,
-                      color: ColoursDark.error),
-                  title: const Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      color: ColoursDark.error,
-                      fontWeight: FontWeight.w600,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: const Icon(Icons.logout_rounded,
+                          color: ColoursDark.onBackground),
+                      title: const Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          color: ColoursDark.onBackground,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Log out of your Fortress account',
+                        style: TextStyle(
+                            color: ColoursDark.onSurfaceMuted, fontSize: 12),
+                      ),
+                      onTap: () => SignOutDialog.show(
+                        context,
+                        onConfirm: () => context
+                            .read<SettingsBloc>()
+                            .add(const SignOutRequestedEvent()),
+                      ),
                     ),
-                  ),
-                  subtitle: const Text(
-                    'Log out of your Fortress account',
-                    style: TextStyle(
-                        color: ColoursDark.onSurfaceMuted, fontSize: 12),
-                  ),
-                  onTap: () => SignOutDialog.show(
-                    context,
-                    onConfirm: () => context
-                        .read<SettingsBloc>()
-                        .add(const SignOutRequestedEvent()),
-                  ),
+                    const Divider(color: ColoursDark.divider, height: 1),
+                    ListTile(
+                      leading: const Icon(Icons.delete_forever_rounded,
+                          color: ColoursDark.error),
+                      title: const Text(
+                        'Delete Account & Reset',
+                        style: TextStyle(
+                          color: ColoursDark.error,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      subtitle: const Text(
+                        'Erase profile & cache, retain chats for contacts',
+                        style: TextStyle(
+                            color: ColoursDark.onSurfaceMuted, fontSize: 12),
+                      ),
+                      trailing: state.isClearingCache
+                          ? const SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
+                          : const Icon(Icons.arrow_forward_ios,
+                              size: 14, color: ColoursDark.onSurfaceMuted),
+                      onTap: () => DeleteAccountDialog.show(
+                        context,
+                        onConfirm: () => context
+                            .read<SettingsBloc>()
+                            .add(const DeleteAccountRequestedEvent()),
+                      ),
+                    ),
+                  ],
                 ),
               ),
 

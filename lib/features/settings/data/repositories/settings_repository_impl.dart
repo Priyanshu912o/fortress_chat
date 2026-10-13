@@ -42,4 +42,15 @@ class SettingsRepositoryImpl implements SettingsRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<ChatFailures, Unit>> deleteAccount() async {
+    try {
+      await _remoteDataSource.deleteAccount();
+      await _localDataSource.clearLocalDatabase();
+      return const Right(unit);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

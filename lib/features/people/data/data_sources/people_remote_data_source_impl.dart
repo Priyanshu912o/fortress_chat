@@ -48,7 +48,7 @@ class PeopleRemoteDataSourceImpl implements PeopleRemoteDataSource {
       data: const <String, dynamic>{},
     );
     final data = response.data as Map<String, dynamic>;
-    return data['chatRoomId'] as String;
+    return (data['chatRoomId'] ?? data['id'] ?? '') as String;
   }
 
   @override

@@ -6,4 +6,5 @@ abstract class SettingsRepository {
   Future<Either<ChatFailures, UserProfileEntity?>> getCurrentUser();
   Future<Either<ChatFailures, Unit>> clearLocalCache();
   Future<Either<ChatFailures, Unit>> signOut();
+  Future<Either<ChatFailures, Unit>> deleteAccount();
 }

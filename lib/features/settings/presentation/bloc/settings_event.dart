@@ -42,3 +42,7 @@ class ClearLocalCacheEvent extends SettingsEvent {
 class SignOutRequestedEvent extends SettingsEvent {
   const SignOutRequestedEvent();
 }
+
+class DeleteAccountRequestedEvent extends SettingsEvent {
+  const DeleteAccountRequestedEvent();
+}

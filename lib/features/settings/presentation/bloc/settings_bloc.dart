@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/usecases/clear_local_cache_usecase.dart';
+import '../../domain/usecases/delete_account_usecase.dart';
 import '../../domain/usecases/get_current_user_usecase.dart';
 import '../../domain/usecases/sign_out_usecase.dart';
 import 'settings_event.dart';
@@ -11,11 +12,13 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   final GetCurrentUserUsecase _getCurrentUserUsecase;
   final ClearLocalCacheUsecase _clearLocalCacheUsecase;
   final SignOutUsecase _signOutUsecase;
+  final DeleteAccountUsecase _deleteAccountUsecase;
 
   SettingsBloc(
     this._getCurrentUserUsecase,
     this._clearLocalCacheUsecase,
     this._signOutUsecase,
+    this._deleteAccountUsecase,
   ) : super(const SettingsState()) {
     on<LoadSettings>(_onLoadSettings);
     on<ToggleNotifications>(_onToggleNotifications);
@@ -23,6 +26,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     on<ToggleLastSeen>(_onToggleLastSeen);
     on<ClearLocalCacheEvent>(_onClearLocalCache);
     on<SignOutRequestedEvent>(_onSignOutRequested);
+    on<DeleteAccountRequestedEvent>(_onDeleteAccountRequested);
   }
 
   Future<void> _onLoadSettings(
@@ -72,6 +76,23 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         message: 'Sign out failed: ${failure.message}',
       )),
       (_) => emit(state.copyWith(signedOut: true)),
+    );
+  }
+
+  Future<void> _onDeleteAccountRequested(
+      DeleteAccountRequestedEvent event, Emitter<SettingsState> emit) async {
+    emit(state.copyWith(isClearingCache: true));
+    final result = await _deleteAccountUsecase();
+    result.fold(
+      (failure) => emit(state.copyWith(
+        isClearingCache: false,
+        message: 'Failed to delete account: ${failure.message}',
+      )),
+      (_) => emit(state.copyWith(
+        isClearingCache: false,
+        signedOut: true,
+        message: 'Account successfully deleted.',
+      )),
     );
   }
 }
